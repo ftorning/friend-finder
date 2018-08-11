@@ -3,3 +3,6 @@ node_modules/
 
 # homework stuff
 Instructions/
+
+# keep secrets secret
+.env
