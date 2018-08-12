@@ -1,0 +1,22 @@
+body {
+    background-image: url("forest.jpg");
+}
+
+.jumbotron {
+    background-color: rgba(0,0,0,0);
+}
+
+.faded-background {
+    color: white;
+    background-color: rgba(107, 13, 13, 0.75);
+    padding: 0px 20px 20px 20px;
+
+}
+
+h1 {
+    padding: 20px 0px;
+}
+
+.multi-form > .row {
+    margin-bottom: 10px !important;
+}

@@ -2,19 +2,22 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const mysql = require("mysql");
 const crypto = require("crypto");
-const app = require('express')();
+const express = require('express');
+const app = express();
 const htmlRoutes = require('./app/routing/htmlRoutes')
 const apiRoutes = require('./app/routing/apiRoutes')
 require('dotenv').config();
 
 // express setup
-app.use('/api', apiRoutes);
-app.use('/', htmlRoutes);
+app.use(express.static(__dirname + "/app/views/static"));
 
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
 
 var PORT = process.env.PORT || 8080;
+
+
 
 // handlebars
 var customViewsPath = path.join(__dirname, 'app', 'views');
@@ -27,6 +30,9 @@ app.engine('handlebars', exphbs({
   layoutsDir: customViewsPath + '/layouts' 
 }));
 app.set('view engine', 'handlebars');
+
+app.use('/api', apiRoutes);
+app.use('/', htmlRoutes);
 
 // mysql setup
 var connection = mysql.createConnection({

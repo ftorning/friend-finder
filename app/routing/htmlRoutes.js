@@ -7,9 +7,19 @@ router.use(function timeLog (req, res, next) {
 });
 
 // define the home page route
-router.get('/', function (req, res) {
+router.get('/', (req, res) => {
     res.render('index');
 });
+
+router.route('/add-question')
+    .get((req, res) => {
+        res.render('add-question');
+    })
+    .post((req, res) => {
+        var data = req.body;
+        res.send(data);
+        // connection.query("SELECT * FROM ")
+    })
 
 // // Root get route.
 // app.get("/", function(req, res) {
