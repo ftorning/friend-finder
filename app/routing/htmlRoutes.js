@@ -1,4 +1,6 @@
 const router = require('express').Router();
+// var connection = require('../data/connection');
+const friend = require("../data/friends");
 
 // middleware that is specific to this router
 router.use(function timeLog (req, res, next) {
@@ -7,35 +9,40 @@ router.use(function timeLog (req, res, next) {
 });
 
 // define the home page route
-router.get('/', (req, res) => {
-    res.render('index');
-});
-
-router.route('/add-question')
+router.route('/survey')
     .get((req, res) => {
-        res.render('add-question');
+        res.render('survey');
     })
     .post((req, res) => {
-        var data = req.body;
-        res.send(data);
-        // connection.query("SELECT * FROM ")
+        var username = req.body.username;
+        var photourl = req.body.photourl;
+        var answers = [];
+        answers.push(parseInt(req.body.q1));
+        answers.push(parseInt(req.body.q2));
+        answers.push(parseInt(req.body.q3));
+        answers.push(parseInt(req.body.q4));
+        answers.push(parseInt(req.body.q5));
+        answers.push(parseInt(req.body.q6));
+        var new_friend = new friend.Friend(username, photourl, answers);
+        var match = friend.friendMatch(new_friend);
+        new_friend.addFriend()
+        
+
+        console.log(friend.friend_list);
+        res.render('results', {match: match});
     })
 
-// // Root get route.
-// app.get("/", function(req, res) {
-// //   connection.query("SELECT * FROM wishes;", function(err, data) {
-// //     if (err) {
-// //       throw err;
-// //     }
+router.route("/results")
+    .get((req, res) => {
+        console.log(req);
+        console.log(res);
+        res.send(match);
+    })
 
-//     // Test it.
-//     // console.log('The solution is: ', data);
+router.get('*', (req, res) => {
+    return res.redirect('/survey');
+});
 
-//     // Test it.
-//     // res.send(data);
 
-//     res.render("index");
-// //   });
-// });
 
 module.exports = router;

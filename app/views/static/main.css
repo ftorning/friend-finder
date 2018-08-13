@@ -17,6 +17,12 @@ h1 {
     padding: 20px 0px;
 }
 
-.multi-form > .row {
+/* .multi-form > .row {
     margin-bottom: 10px !important;
+} */
+
+.res-image {
+    max-width: 500px;
+    
+    
 }
